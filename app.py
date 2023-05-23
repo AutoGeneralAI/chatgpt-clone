@@ -47,10 +47,6 @@ block = gr.Blocks()
 with block:
     gr.Markdown("""<h1><center>Build Yo'own ChatGPT with OpenAI API & Gradio</center></h1>
     """)
-    chatbot = gr.Chatbot()
-    message = gr.Textbox(placeholder=prompt)
-    state = gr.State()
-    submit = gr.Button("SEND")
     keyTxt = gr.Textbox(
                         show_label=True,
                         placeholder=f"Your API-key...",
@@ -58,6 +54,10 @@ with block:
                         visible=True,
                         label="API-Key",
                     )
+    chatbot = gr.Chatbot()
+    message = gr.Textbox(placeholder=prompt)
+    state = gr.State()
+    submit = gr.Button("SEND")
     submit.click(chatgpt_clone, inputs=[keyTxt, message, state], outputs=[chatbot, state])
 
 block.launch(debug = True)
