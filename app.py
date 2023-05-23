@@ -30,7 +30,8 @@ def openai_create(prompt):
 
 
 
-def chatgpt_clone(input, history):
+def chatgpt_clone(key, input, history):
+    openai.api_key = key
     history = history or []
     s = list(sum(history, ()))
     s.append(input)
@@ -50,6 +51,13 @@ with block:
     message = gr.Textbox(placeholder=prompt)
     state = gr.State()
     submit = gr.Button("SEND")
-    submit.click(chatgpt_clone, inputs=[message, state], outputs=[chatbot, state])
+    keyTxt = gr.Textbox(
+                        show_label=True,
+                        placeholder=f"Your API-key...",
+                        type="password",
+                        visible=True,
+                        label="API-Key",
+                    )
+    submit.click(chatgpt_clone, inputs=[keyTxt, message, state], outputs=[chatbot, state])
 
 block.launch(debug = True)
